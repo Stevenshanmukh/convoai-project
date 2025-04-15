@@ -11,6 +11,9 @@ RUN apt-get update && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
+# Ensure ffmpeg and ffprobe are in the PATH
+ENV PATH="/usr/local/bin:${PATH}"
+
 # Set working directory
 WORKDIR /app
 
