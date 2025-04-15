@@ -1,0 +1,21 @@
+# Ignore the following files/folders
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.db
+*.sqlite3
+*.log
+.env
+venv/
+.envrc
+.idea/
+.vscode/
+uploads/
+
+# Ignore Mac/OSX system files
+.DS_Store
+
+# Ignore git metadata
+.git
+.gitignore
