@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>📖 ReadnRespond - PDF Insight</title>
+    <style>
+        /* General Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Body Styling */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f9fafb; /* Light gray background */
+            color: #374151; /* Dark text */
+            max-width: 700px;
+            margin: 40px auto;
+            padding: 20px;
+            border-radius: 16px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.06);
+        }
+
+        /* Header Styling */
+        h1 {
+            text-align: center;
+            color: #1e3a8a; /* Blue title */
+            font-size: 36px;
+            font-weight: bold;
+            letter-spacing: 1px;
+            margin-bottom: 20px;
+            position: relative;
+            text-transform: uppercase;
+        }
+
+        h1::after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 4px;
+            background-color: #3b82f6; /* Blue underline */
+            margin: 10px auto 20px;
+            border-radius: 2px;
+        }
+
+        /* Form Styling */
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        label {
+            font-size: 16px;
+            font-weight: 600;
+            color: #4b5563; /* Slightly darker gray for labels */
+        }
+
+        input[type="file"] {
+            padding: 10px;
+            border: 1px solid #d1d5db; /* Light gray border */
+            border-radius: 8px;
+            font-size: 14px;
+            background-color: #f3f4f6; /* Light background for input */
+            transition: border-color 0.3s ease;
+        }
+
+        input[type="file"]:focus {
+            border-color: #3b82f6; /* Blue border on focus */
+            outline: none;
+        }
+
+        /* Button Styling */
+        button {
+            padding: 12px 20px;
+            font-size: 16px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+        }
+
+        #record-btn {
+            background-color: #3b82f6; /* Blue for record */
+            color: white;
+        }
+
+        #record-btn:hover {
+            background-color: #2563eb; /* Darker blue on hover */
+        }
+
+        #stop-btn {
+            background-color: #ef4444; /* Red for stop */
+            color: white;
+        }
+
+        #stop-btn:hover {
+            background-color: #dc2626; /* Darker red on hover */
+        }
+
+        #submit-btn {
+            background-color: #10b981; /* Green for submit */
+            color: white;
+        }
+
+        #submit-btn:hover {
+            background-color: #059669; /* Darker green on hover */
+        }
+
+        /* Status Message Styling */
+        #status {
+            font-size: 14px;
+            color: #6b7280; /* Light gray for status */
+            text-align: center;
+            margin-top: 10px;
+        }
+
+        /* Result Display Styling */
+        pre#result {
+            white-space: pre-wrap;
+            background-color: #f9fafb; /* Light background for results */
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 20px;
+            font-size: 16px;
+            color: #4b5563; /* Slightly darker gray for text */
+            border: 1px solid #e5e7eb; /* Light gray border */
+        }
+
+        /* Audio Player Styling */
+        #audio-player {
+            width: 100%;
+            margin-top: 20px;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <h1>📖 ReadnRespond - PDF Insight</h1>
+
+    <form id="upload-form" method="POST" enctype="multipart/form-data">
+        <!-- PDF Upload -->
+        <label for="pdf">Upload PDF:</label>
+        <input type="file" name="pdf" id="pdf" accept=".pdf" required>
+
+        <!-- Recording Buttons -->
+        <div style="display: flex; justify-content: space-between; gap: 10px;">
+            <button type="button" id="record-btn" style="flex: 1;">🎙️ Start Recording</button>
+            <button type="button" id="stop-btn" disabled style="flex: 1;">🛑 Stop</button>
+        </div>
+
+        <!-- Status Message -->
+        <p id="status">Click "Start Recording" to ask your question.</p>
+
+        <!-- Submit Button -->
+        <button type="submit" id="submit-btn">📤 Submit</button>
+    </form>
+
+    <!-- Result Display -->
+    <pre id="result"></pre>
+
+    <!-- Audio Player -->
+    <audio id="audio-player" controls>
+        <source id="audio-source" src="" type="audio/wav">
+        Your browser does not support the audio element.
+    </audio>
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
