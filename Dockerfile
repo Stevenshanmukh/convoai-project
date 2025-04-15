@@ -23,8 +23,5 @@ RUN pip install --no-cache-dir -r requirements.txt
 # Expose port 8080 for Cloud Run
 EXPOSE 8080
 
-# Set environment variable (Optional, can also be done via Cloud Run deployment)
-# ENV GOOGLE_AI_API_KEY=your_api_key_here
-
 # Start the Flask app
-CMD ["python", "app.py"]
+CMD ["python", "main.py"]

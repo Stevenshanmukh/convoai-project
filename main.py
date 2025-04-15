@@ -78,9 +78,11 @@ def upload():
     audio.save(audio_path)
 
     try:
+        # Extract text from PDF and transcribe audio
         pdf_text = extract_text_from_pdf(pdf_path)
         question_text = transcribe_audio(audio_path)
 
+        # Prepare prompt for the AI model
         prompt = f"""
         Given the following book content and a question, provide the answer.
 
@@ -91,14 +93,17 @@ def upload():
         {question_text}
         """
 
+        # Get response from the AI model
         response = model.generate_content(prompt)
         answer_text = response.text
 
         # Convert answer text to speech
         audio_output = synthesize_speech(answer_text)
 
-        # Save the audio to a file
+        # Define the path for the new audio response
         audio_response_path = os.path.join(app.config['UPLOAD_FOLDER'], "response.wav")
+
+        # Overwrite the old audio file with the new one
         with open(audio_response_path, "wb") as out:
             out.write(audio_output)
 

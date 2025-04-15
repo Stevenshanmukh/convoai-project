@@ -63,7 +63,9 @@ uploadForm.onsubmit = async (e) => {
         } else {
             resultBox.innerText = `🎤 Question: ${result.question}\n\n💬 Answer: ${result.answer}`;
             if (result.audio_file) {
-                audioSource.src = result.audio_file;
+                // Add a unique query parameter to force reload of audio file
+                const uniqueAudioUrl = result.audio_file + "?t=" + new Date().getTime();
+                audioSource.src = uniqueAudioUrl;
                 audioPlayer.load();
                 audioPlayer.style.display = "block";
             }
