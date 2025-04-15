@@ -11,9 +11,6 @@ RUN apt-get update && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
-# Ensure ffmpeg and ffprobe are in the PATH
-ENV PATH="/usr/local/bin:${PATH}"
-
 # Set working directory
 WORKDIR /app
 
@@ -23,8 +20,11 @@ COPY . .
 # Install Python packages
 RUN pip install --no-cache-dir -r requirements.txt
 
+# Install Gunicorn
+RUN pip install gunicorn
+
 # Expose port 8080 for Cloud Run
 EXPOSE 8080
 
-# Start the Flask app
-CMD ["python", "main.py"]
+# Start the Flask app with Gunicorn
+CMD ["gunicorn", "-w", "4", "-t", "300", "main:app"]
